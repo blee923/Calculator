@@ -50,6 +50,7 @@ public class Calculator {
 
     boolean functionCall = false;
     boolean finished = false;
+    boolean result = false;
 
     public Calculator() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +107,7 @@ public class Calculator {
         equals.setLocation(272, 470);
         equals.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                result = true;
                 num1str = screen.getText();
                 num2str = inputScreen.getText();
                 String temp = num1str + num2str + "=";
@@ -113,6 +115,7 @@ public class Calculator {
                 num1str = num1str.substring(0, num1str.length() - 1);
                 num1 = Double.parseDouble(num1str);
                 num2 = Double.parseDouble(num2str);
+                screen.setText(temp);
                 if(operator.equals("+")) {
                     total = num1 + num2;
                 } else if (operator.equals("-")) {
@@ -120,12 +123,22 @@ public class Calculator {
                 } else if (operator.equals("*")) {
                     total = num1 * num2;
                 } else if (operator.equals("/")) {
+                    if (num1 == 0 && num2 == 0) {
+                        inputScreen.setText("Result is undefined");
+                        finished = true;
+                        operator = "";
+                        return;
+                    } else if (num2 == 0) {
+                        inputScreen.setText("Cannot divide by zero");
+                        finished = true;
+                        operator = "";
+                        return;
+                    }
                     total = num1 / num2;
                 } else if (operator.equals("%")) {
                     total = num1 % num2;
                 }
                 totalStr = Double.toString(total);
-                screen.setText(temp);
                 inputScreen.setText(totalStr);
                 functionCall = true;
                 operator = "";
@@ -159,7 +172,13 @@ public class Calculator {
         add.setLocation(272, 410);
         add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.setText(inputScreen.getText() + "+");
+                if (functionCall) {
+                    String temp = screen.getText();
+                    temp = temp.substring(0, temp.length() - 1) + "+";
+                    screen.setText(temp);
+                } else {
+                    screen.setText(inputScreen.getText() + "+");
+                }
                 inputScreen.setText("");
             }
         });
@@ -191,7 +210,14 @@ public class Calculator {
         subtract.setLocation(272, 350);
         subtract.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.setText(inputScreen.getText() + "-");
+                if (functionCall) {
+                    String temp = screen.getText();
+                    temp = temp.substring(0, temp.length() - 1) + "-";
+                    screen.setText(temp);
+                } else {
+                    screen.setText(inputScreen.getText() + "-");
+                }
+                functionCall = true;
                 inputScreen.setText("");
             }
         });
@@ -223,7 +249,14 @@ public class Calculator {
         multiply.setLocation(272, 290);
         multiply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.setText(inputScreen.getText() + "*");
+                if (functionCall) {
+                    String temp = screen.getText();
+                    temp = temp.substring(0, temp.length() - 1) + "*";
+                    screen.setText(temp);
+                } else {
+                    screen.setText(inputScreen.getText() + "*");
+                }
+                functionCall = true;
                 inputScreen.setText("");
             }
         });
@@ -248,7 +281,13 @@ public class Calculator {
         backspace.setLocation(182, 230);
         backspace.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                if (result) {
+                    return;
+                }
                 String temp = inputScreen.getText();
+                if (temp.length() == 0) {
+                    return;
+                }
                 inputScreen.setText(temp.substring(0, temp.length() - 1));
             }
         });
@@ -256,7 +295,14 @@ public class Calculator {
         divide.setLocation(272, 230);
         divide.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.setText(inputScreen.getText() + "/");
+                if (functionCall) {
+                    String temp = screen.getText();
+                    temp = temp.substring(0, temp.length() - 1) + "/";
+                    screen.setText(temp);
+                } else {
+                    screen.setText(inputScreen.getText() + "/");
+                }
+                functionCall = true;
                 inputScreen.setText("");
             }
         });
@@ -275,10 +321,17 @@ public class Calculator {
                 num1str = inputScreen.getText();
                 screen.setText("\u221A" + num1str + "=");
                 num1 = Double.parseDouble(num1str);
+                if (num1 < 0) {
+                    inputScreen.setText("Invalid input");
+                    functionCall = true;
+                    result = true;
+                    return;
+                }
                 total = Math.sqrt(num1);
                 totalStr = Double.toString(total);
                 inputScreen.setText(totalStr);
                 functionCall = true;
+                result = true;
             }
         });
         squared.setSize(90, 60);
@@ -292,6 +345,7 @@ public class Calculator {
                totalStr = Double.toString(total);
                inputScreen.setText(totalStr);
                functionCall = true;
+               result = true;
            }
         });
         oneOver.setSize(90, 60);
@@ -305,19 +359,21 @@ public class Calculator {
                 totalStr = Double.toString(total);
                 inputScreen.setText(totalStr);
                 functionCall = true;
+                result = true;
             }
         });
     }
 
     private void called() {
-        if (finished) {
+        if(finished) {
             finished = false;
-            screen.setText("");
             inputScreen.setText("");
+            screen.setText("");
         } else if (functionCall) {
             functionCall = false;
             inputScreen.setText("");
         }
+        result = false;
     }
 
     private void addButtons(JFrame frame) {
