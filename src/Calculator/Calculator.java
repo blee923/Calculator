@@ -1,5 +1,6 @@
 package Calculator;
 
+import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ public class Calculator {
 
     // Screen for calculator
     private JTextArea screen = new JTextArea();
+    private JTextArea inputScreen = new JTextArea();
 
     // Buttons
     private JButton one = new JButton("1");
@@ -27,9 +29,14 @@ public class Calculator {
     private JButton divide = new JButton("\u00F7");
     private JButton subtract = new JButton("-");
     private JButton modulus = new JButton("mod");
+    private JButton sqrt = new JButton("\u221A");
+    private JButton squared = new JButton("X\u00B2");
+    private JButton oneOver = new JButton("1/X");
     private JButton decimal = new JButton(".");
     private JButton negative = new JButton("\u00B1");
     private JButton clear = new JButton("C");
+    private JButton clearEntry = new JButton("CE");
+    private JButton backspace = new JButton("\u232B");
     private JButton equals = new JButton("=");
 
     // Calculations
@@ -37,11 +44,12 @@ public class Calculator {
     String num2str = "";
     String totalStr = "";
 
-    String[] statement;
-
     double num1 = 0;
     double num2 = 0;
     double total = 0;
+
+    boolean functionCall = false;
+    boolean finished = false;
 
     public Calculator() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,12 +58,17 @@ public class Calculator {
         frame.setVisible(true);
         frame.setLayout(null);
 
-        screen.setSize(380,100);
+        screen.setSize(370,140);
         screen.setLocation(7,5);
         screen.setEditable(false);
 
+        inputScreen.setSize(380, 70);
+        inputScreen.setLocation(7, 35);
+        inputScreen.setEditable(false);
+        inputScreen.setFont(inputScreen.getFont().deriveFont(30f));
+
         frame.add(screen);
-        screen.setSize(370,140);
+        frame.add(inputScreen);
         addButtons(frame);
         setButtons(frame);
     }
@@ -63,142 +76,163 @@ public class Calculator {
     private void setButtons(JFrame frame) {
         negative.setSize(90, 60);
         negative.setLocation(2, 470);
+        negative.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent arg0) {
+               String temp = inputScreen.getText();
+               if (temp.contains("-")) {
+                   inputScreen.setText(temp.substring(1,temp.length()));
+               } else {
+                   inputScreen.setText("-" + temp);
+               }
+           }
+        });
         zero.setSize(90, 60);
         zero.setLocation(92, 470);
         zero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("0");
+                called();
+                inputScreen.append("0");
             }
         });
         decimal.setSize(90, 60);
         decimal.setLocation(182, 470);
         decimal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append(".");
+                called();
+                inputScreen.append(".");
             }
         });
         equals.setSize(90, 60);
         equals.setLocation(272, 470);
         equals.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                String holding = screen.getText();
-                if(holding.contains("+")) {
-                    statement = holding.split("\\+");
-                    num1str = statement[0];
-                    num2str = statement[1];
-                    num1 = Double.parseDouble(num1str);
-                    num2 = Double.parseDouble(num2str);
+                num1str = screen.getText();
+                num2str = inputScreen.getText();
+                String temp = num1str + num2str + "=";
+                String operator = num1str.substring(num1str.length() - 1);
+                num1str = num1str.substring(0, num1str.length() - 1);
+                num1 = Double.parseDouble(num1str);
+                num2 = Double.parseDouble(num2str);
+                if(operator.equals("+")) {
                     total = num1 + num2;
-                } else if (holding.contains("-")) {
-                    statement = holding.split("\\-");
-                    num1str = statement[0];
-                    num2str = statement[1];
-                    num1 = Double.parseDouble(num1str);
-                    num2 = Double.parseDouble(num2str);
+                } else if (operator.equals("-")) {
                     total = num1 - num2;
-                } else if (holding.contains("*")) {
-                    statement = holding.split("\\*");
-                    num1str = statement[0];
-                    num2str = statement[1];
-                    num1 = Double.parseDouble(num1str);
-                    num2 = Double.parseDouble(num2str);
+                } else if (operator.equals("*")) {
                     total = num1 * num2;
-                } else if (holding.contains("/")) {
-                    statement = holding.split("\\/");
-                    num1str = statement[0];
-                    num2str = statement[1];
-                    num1 = Double.parseDouble(num1str);
-                    num2 = Double.parseDouble(num2str);
+                } else if (operator.equals("/")) {
                     total = num1 / num2;
-                } else if (holding.contains("%")) {
-                    statement = holding.split("\\%");
-                    num1str = statement[0];
-                    num2str = statement[1];
-                    num1 = Double.parseDouble(num1str);
-                    num2 = Double.parseDouble(num2str);
+                } else if (operator.equals("%")) {
                     total = num1 % num2;
                 }
                 totalStr = Double.toString(total);
-                screen.setText(totalStr);
+                screen.setText(temp);
+                inputScreen.setText(totalStr);
+                functionCall = true;
+                operator = "";
             }
         });
         one.setSize(90, 60);
         one.setLocation(2, 410);
         one.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("1");
+                called();
+                inputScreen.append("1");
             }
         });
         two.setSize(90, 60);
         two.setLocation(92, 410);
         two.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("2");
+                called();
+                inputScreen.append("2");
             }
         });
         three.setSize(90, 60);
         three.setLocation(182, 410);
         three.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("3");
+                called();
+                inputScreen.append("3");
             }
         });
         add.setSize(90, 60);
         add.setLocation(272, 410);
         add.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) { screen.append("+"); }
+            public void actionPerformed(ActionEvent arg0) {
+                screen.setText(inputScreen.getText() + "+");
+                inputScreen.setText("");
+            }
         });
         four.setSize(90, 60);
         four.setLocation(2, 350);
         four.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("4");
+                called();
+                inputScreen.append("4");
             }
         });
         five.setSize(90, 60);
         five.setLocation(92, 350);
         five.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("5");
+                called();
+                inputScreen.append("5");
             }
         });
         six.setSize(90, 60);
         six.setLocation(182, 350);
         six.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("6");
+                called();
+                inputScreen.append("6");
             }
         });
         subtract.setSize(90, 60);
         subtract.setLocation(272, 350);
         subtract.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) { screen.append("-"); }
+            public void actionPerformed(ActionEvent arg0) {
+                screen.setText(inputScreen.getText() + "-");
+                inputScreen.setText("");
+            }
         });
         seven.setSize(90, 60);
         seven.setLocation(2, 290);
         seven.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("7");
+                called();
+                inputScreen.append("7");
             }
         });
         eight.setSize(90, 60);
         eight.setLocation(92, 290);
         eight.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("8");
+                called();
+                inputScreen.append("8");
             }
         });
         nine.setSize(90, 60);
         nine.setLocation(182, 290);
         nine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.append("9");
+                called();
+                inputScreen.append("9");
             }
         });
         multiply.setSize(90, 60);
         multiply.setLocation(272, 290);
         multiply.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) { screen.append("*"); }
+            public void actionPerformed(ActionEvent arg0) {
+                screen.setText(inputScreen.getText() + "*");
+                inputScreen.setText("");
+            }
+        });
+        clearEntry.setSize(90, 60);
+        clearEntry.setLocation(2, 230);
+        clearEntry.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                inputScreen.setText("");
+            }
         });
         clear.setSize(90, 60);
         clear.setLocation(92, 230);
@@ -207,18 +241,83 @@ public class Calculator {
                 num1str = "";
                 num2str = "";
                 screen.setText("");
+                inputScreen.setText("");
+            }
+        });
+        backspace.setSize(90, 60);
+        backspace.setLocation(182, 230);
+        backspace.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String temp = inputScreen.getText();
+                inputScreen.setText(temp.substring(0, temp.length() - 1));
             }
         });
         divide.setSize(90, 60);
         divide.setLocation(272, 230);
         divide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) { screen.append("/"); }
+            public void actionPerformed(ActionEvent arg0) {
+                screen.setText(inputScreen.getText() + "/");
+                inputScreen.setText("");
+            }
         });
         modulus.setSize(90, 60);
         modulus.setLocation(2, 170);
         modulus.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) { screen.append("%"); }
+            public void actionPerformed(ActionEvent arg0) {
+                screen.setText(inputScreen.getText() + "%");
+                inputScreen.setText("");
+            }
         });
+        sqrt.setSize(90, 60);
+        sqrt.setLocation(92, 170);
+        sqrt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                num1str = inputScreen.getText();
+                screen.setText("\u221A" + num1str + "=");
+                num1 = Double.parseDouble(num1str);
+                total = Math.sqrt(num1);
+                totalStr = Double.toString(total);
+                inputScreen.setText(totalStr);
+                functionCall = true;
+            }
+        });
+        squared.setSize(90, 60);
+        squared.setLocation(182, 170);
+        squared.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent arg0) {
+               num1str = inputScreen.getText();
+               screen.setText(num1str + "\u00B2=");
+               num1 = Double.parseDouble(num1str);
+               total = Math.pow(num1, 2);
+               totalStr = Double.toString(total);
+               inputScreen.setText(totalStr);
+               functionCall = true;
+           }
+        });
+        oneOver.setSize(90, 60);
+        oneOver.setLocation(272, 170);
+        oneOver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                num1str = inputScreen.getText();
+                screen.setText("1/" + num1str + "=");
+                num1 = Double.parseDouble(num1str);
+                total = 1/num1;
+                totalStr = Double.toString(total);
+                inputScreen.setText(totalStr);
+                functionCall = true;
+            }
+        });
+    }
+
+    private void called() {
+        if (finished) {
+            finished = false;
+            screen.setText("");
+            inputScreen.setText("");
+        } else if (functionCall) {
+            functionCall = false;
+            inputScreen.setText("");
+        }
     }
 
     private void addButtons(JFrame frame) {
@@ -241,6 +340,11 @@ public class Calculator {
         frame.add(clear);
         frame.add(equals);
         frame.add(modulus);
+        frame.add(sqrt);
+        frame.add(squared);
+        frame.add(oneOver);
+        frame.add(clearEntry);
+        frame.add(backspace);
     }
 
     public static void main(String[] Args) {

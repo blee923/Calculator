@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e90e8948-9ec5-4582-b499-8fdb6acb4f48" name="Default Changelist" comment="" />
+    <list default="true" id="e90e8948-9ec5-4582-b499-8fdb6acb4f48" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$16.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$17.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$18.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calculator/Calculator/Calculator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Calculator/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Calculator/Calculator.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +38,16 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1QJEYHRBlLiPz03kLrESdtFB66m" />
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -60,5 +92,16 @@
       <updated>1567480344295</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
