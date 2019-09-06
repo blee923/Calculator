@@ -80,6 +80,9 @@ public class Calculator {
         negative.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent arg0) {
                String temp = inputScreen.getText();
+               if (temp.contains("zero") || temp.contains("undefined") || temp.contains("input")) {
+                   return;
+               }
                if (temp.contains("-")) {
                    inputScreen.setText(temp.substring(1,temp.length()));
                } else {
@@ -99,6 +102,10 @@ public class Calculator {
         decimal.setLocation(182, 470);
         decimal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                String temp = inputScreen.getText();
+                if (temp.contains("zero") || temp.contains("undefined") || temp.contains("input")) {
+                    return;
+                }
                 called();
                 inputScreen.append(".");
             }
@@ -107,9 +114,19 @@ public class Calculator {
         equals.setLocation(272, 470);
         equals.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                result = true;
                 num1str = screen.getText();
                 num2str = inputScreen.getText();
+                if (num2str.contains("zero") || num2str.contains("undefined") || num2str.contains("input")) {
+                    return;
+                }
+                if (num2str.equals("") && num1str.equals("")) {
+                    return;
+                } else if (num1str.equals("")) {
+                    result = true;
+                    functionCall = true;
+                    return;
+                }
+                result = true;
                 String temp = num1str + num2str + "=";
                 String operator = num1str.substring(num1str.length() - 1);
                 num1str = num1str.substring(0, num1str.length() - 1);
@@ -172,13 +189,18 @@ public class Calculator {
         add.setLocation(272, 410);
         add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
                 if (functionCall) {
                     String temp = screen.getText();
                     temp = temp.substring(0, temp.length() - 1) + "+";
                     screen.setText(temp);
                 } else {
-                    screen.setText(inputScreen.getText() + "+");
+                    screen.setText(temp1 + "+");
                 }
+                functionCall = true;
                 inputScreen.setText("");
             }
         });
@@ -210,12 +232,16 @@ public class Calculator {
         subtract.setLocation(272, 350);
         subtract.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
                 if (functionCall) {
                     String temp = screen.getText();
                     temp = temp.substring(0, temp.length() - 1) + "-";
                     screen.setText(temp);
                 } else {
-                    screen.setText(inputScreen.getText() + "-");
+                    screen.setText(temp1 + "-");
                 }
                 functionCall = true;
                 inputScreen.setText("");
@@ -249,12 +275,16 @@ public class Calculator {
         multiply.setLocation(272, 290);
         multiply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
                 if (functionCall) {
                     String temp = screen.getText();
                     temp = temp.substring(0, temp.length() - 1) + "*";
                     screen.setText(temp);
                 } else {
-                    screen.setText(inputScreen.getText() + "*");
+                    screen.setText(temp1 + "*");
                 }
                 functionCall = true;
                 inputScreen.setText("");
@@ -295,12 +325,16 @@ public class Calculator {
         divide.setLocation(272, 230);
         divide.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
                 if (functionCall) {
                     String temp = screen.getText();
                     temp = temp.substring(0, temp.length() - 1) + "/";
                     screen.setText(temp);
                 } else {
-                    screen.setText(inputScreen.getText() + "/");
+                    screen.setText(temp1 + "/");
                 }
                 functionCall = true;
                 inputScreen.setText("");
@@ -310,7 +344,18 @@ public class Calculator {
         modulus.setLocation(2, 170);
         modulus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                screen.setText(inputScreen.getText() + "%");
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
+                if (functionCall) {
+                    String temp = screen.getText();
+                    temp = temp.substring(0, temp.length() - 1) + "%";
+                    screen.setText(temp);
+                } else {
+                    screen.setText(temp1 + "%");
+                }
+                functionCall = true;
                 inputScreen.setText("");
             }
         });
@@ -318,9 +363,12 @@ public class Calculator {
         sqrt.setLocation(92, 170);
         sqrt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                num1str = inputScreen.getText();
-                screen.setText("\u221A" + num1str + "=");
-                num1 = Double.parseDouble(num1str);
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
+                screen.setText("\u221A" + temp1 + "=");
+                num1 = Double.parseDouble(temp1);
                 if (num1 < 0) {
                     inputScreen.setText("Invalid input");
                     functionCall = true;
@@ -338,9 +386,12 @@ public class Calculator {
         squared.setLocation(182, 170);
         squared.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent arg0) {
-               num1str = inputScreen.getText();
-               screen.setText(num1str + "\u00B2=");
-               num1 = Double.parseDouble(num1str);
+               String temp1 = inputScreen.getText();
+               if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                   return;
+               }
+               screen.setText(temp1 + "\u00B2=");
+               num1 = Double.parseDouble(temp1);
                total = Math.pow(num1, 2);
                totalStr = Double.toString(total);
                inputScreen.setText(totalStr);
@@ -352,9 +403,12 @@ public class Calculator {
         oneOver.setLocation(272, 170);
         oneOver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                num1str = inputScreen.getText();
-                screen.setText("1/" + num1str + "=");
-                num1 = Double.parseDouble(num1str);
+                String temp1 = inputScreen.getText();
+                if (temp1.contains("zero") || temp1.contains("undefined") || temp1.contains("input") || temp1.equals("")) {
+                    return;
+                }
+                screen.setText("1/" + temp1 + "=");
+                num1 = Double.parseDouble(temp1);
                 total = 1/num1;
                 totalStr = Double.toString(total);
                 inputScreen.setText(totalStr);
